@@ -26,6 +26,24 @@ mongoose.connection.on("error", (err) => {
 // cors middleware
 app.use(cors());
 
+// app.use(bodyParser.json());
+app.use(express.json());
+
+// Import routes
+const profileRoute = require("./routes/profile");
+const collectionRoute = require("./routes/collection");
+const nftRoutes = require("./routes/nfts");
+
+//home
+app.get("/", (req, res) => {
+  res.send("Home");
+});
+
+// Middleware
+app.use("/api/profiles", profileRoute);
+app.use("/api/collections", collectionRoute);
+app.use("/api/nfts", nftRoutes);
+
 //start server
 app.listen(port, () => {
   console.log("Server started on port " + port);

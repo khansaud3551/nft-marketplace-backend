@@ -6,6 +6,8 @@ const nftController = require("../controllers/nftController");
 
 router.post("/", nftController.createNFT);
 router.get("/", nftController.getNFTs);
-router.get("/:ipfsPath", nftController.getNFTByIPFSPath);
+router.get("/ipfs/:ipfsPath", nftController.getNFTByIPFSPath);
+router.get("/categories", nftController.getCategories);
+router.get("/category/:categoryName", nftController.getNFTsByCategory);
 
 module.exports = router;

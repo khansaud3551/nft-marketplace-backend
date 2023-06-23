@@ -12,6 +12,42 @@ exports.createNFT = async (req, res) => {
   }
 };
 
+// Add a new function to get all categories
+exports.getCategories = async (req, res) => {
+  try {
+    const nfts = await NFT.find();
+    const groupedNFTs = nfts.reduce((grouped, nft) => {
+      const category = nft.category;
+      if (category in grouped) {
+        grouped[category].push(nft);
+      } else {
+        grouped[category] = [nft];
+      }
+      return grouped;
+    }, {});
+    const categories = Object.entries(groupedNFTs).map(
+      ([categoryName, nfts]) => ({ name: categoryName, nftCount: nfts.length })
+    );
+    res.json(categories);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+// Other controller functions...
+
+exports.getNFTsByCategory = async (req, res) => {
+  const { categoryName } = req.params;
+
+  try {
+    const nfts = await NFT.find({ category: categoryName });
+    res.json(nfts);
+  } catch (error) {
+    console.error("Error fetching NFTs by category", error);
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
 exports.getNFTs = async (req, res) => {
   try {
     const nfts = await NFT.find({});

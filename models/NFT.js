@@ -6,7 +6,7 @@ const NFTSchema = new mongoose.Schema({
   ipfsPath: {
     type: String,
     required: true,
-    unique: true,
+    // unique: true,
   },
   category: {
     type: String,

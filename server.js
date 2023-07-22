@@ -5,9 +5,14 @@ const port = process.env.PORT || 8080;
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const mongoose = require("mongoose");
+//use env
+require("dotenv/config");
 // const config = require("./config/database");
 
-mongoose.connect("mongodb://localhost:27017/test", {
+mongoose.connect(
+  //use env
+  process.env.MONGODB_URI
+   , {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });

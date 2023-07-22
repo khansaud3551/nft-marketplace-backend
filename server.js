@@ -7,8 +7,7 @@ const cors = require("cors");
 const mongoose = require("mongoose");
 // const config = require("./config/database");
 
-// connect to database
-mongoose.connect("mongodb://localhost:27017", {
+mongoose.connect("mongodb://localhost:27017/test", {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });

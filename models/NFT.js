@@ -12,6 +12,13 @@ const NFTSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  seller : {
+    type: String,
+  },
+  owner : {
+    type: String,
+  },
+
   // Add any additional fields you want to store for each NFT
 });
 

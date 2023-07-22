@@ -5,10 +5,14 @@ const port = process.env.PORT || 8080;
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const mongoose = require("mongoose");
+//use env
+require("dotenv/config");
 // const config = require("./config/database");
 
-// connect to database
-mongoose.connect("mongodb://localhost:27017", {
+mongoose.connect(
+  //use env
+  process.env.MONGODB_URI
+   , {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
@@ -25,6 +29,24 @@ mongoose.connection.on("error", (err) => {
 
 // cors middleware
 app.use(cors());
+
+// app.use(bodyParser.json());
+app.use(express.json());
+
+// Import routes
+const profileRoute = require("./routes/profile");
+const collectionRoute = require("./routes/collection");
+const nftRoutes = require("./routes/nfts");
+
+//home
+app.get("/", (req, res) => {
+  res.send("Home");
+});
+
+// Middleware
+app.use("/api/profiles", profileRoute);
+app.use("/api/collections", collectionRoute);
+app.use("/api/nfts", nftRoutes);
 
 //start server
 app.listen(port, () => {

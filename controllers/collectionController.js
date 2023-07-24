@@ -37,3 +37,13 @@ exports.updateCollection = async (req, res) => {
   );
   res.send(collection);
 };
+
+//get all collections
+exports.getAllCollections = async (req, res) => {
+  try {
+    const collections = await Collection.find();
+    res.status(200).json(collections);
+  } catch (err) {
+    res.status(500).json({ error: err });
+  }
+}

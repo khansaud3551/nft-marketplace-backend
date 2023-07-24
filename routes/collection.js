@@ -3,6 +3,7 @@ const router = express.Router();
 
 const CollectionController = require("../controllers/collectionController");
 
+router.get("/all", CollectionController.getAllCollections);
 router.get("/:name", CollectionController.getCollection);
 router.post("/", CollectionController.createCollection);
 router.put("/:name", CollectionController.updateCollection);

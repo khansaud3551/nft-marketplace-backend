@@ -37,6 +37,7 @@ app.use(express.json());
 const profileRoute = require("./routes/profile");
 const collectionRoute = require("./routes/collection");
 const nftRoutes = require("./routes/nfts");
+const { sendEmail } = require("./controllers/emailController");
 
 //home
 app.get("/", (req, res) => {
@@ -47,6 +48,10 @@ app.get("/", (req, res) => {
 app.use("/api/profiles", profileRoute);
 app.use("/api/collections", collectionRoute);
 app.use("/api/nfts", nftRoutes);
+
+// route for sending email
+app.post('/api/sendmail', sendEmail);
+
 
 //start server
 app.listen(port, () => {

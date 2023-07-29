@@ -7,7 +7,12 @@ const ProfileSchema = mongoose.Schema({
     unique: true,
   },
   username: String,
-  bio: String,
+  description: String,
+  email: String,
+  facebookLink: String,
+  twitterLink: String,
+  instagramLink: String,
+  websiteLink: String,
   collectionIDs: [String], // New field for collection IDs
   // Add other fields as needed...
 });

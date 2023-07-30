@@ -1,4 +1,5 @@
 const Collection = require("../models/Collection");
+const NFT = require("../models/NFT");
 
 exports.getCollection = async (req, res) => {
   const collection = await Collection.findOne({ name: req.params.name });
@@ -8,6 +9,23 @@ exports.getCollection = async (req, res) => {
   }
 
   res.send(collection);
+};
+
+
+//get nfts by collection
+exports.getCollectionNfts = async (req, res) => {
+  try {
+    const collection = await Collection.findById(req.params.collectionId);
+    if (!collection) {
+      return res.status(404).json({ message: "Collection not found" });
+    }
+
+    // Instead of matching by _id, match by ipfsPath
+    const nfts = await NFT.find({ ipfsPath: { $in: collection.nftIDs } });
+    res.json(nfts);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
 };
 
 // A new function to get a user's collections

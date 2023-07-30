@@ -1,3 +1,4 @@
+const Collection = require("../models/Collection");
 const Profile = require("../models/Profile");
 
 exports.getProfile = async (req, res) => {
@@ -11,6 +12,25 @@ exports.getProfile = async (req, res) => {
   }
   res.send(profile);
 };
+
+
+//get collections by wallet address of user
+exports.getUserCollections = async (req, res) => {
+  try {
+    const profile = await Profile.findOne({ walletAddress: req.params.walletAddress });
+    if (!profile) {
+      return res.status(404).json({ message: "Profile not found" });
+    }
+
+    const collections = await Collection.find({ _id: { $in: profile.collectionIDs } });
+    
+    res.json(collections);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
+
 
 exports.createProfile = async (req, res) => {
   let profile = new Profile(req.body);

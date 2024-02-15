@@ -7,6 +7,7 @@ router.get("/:walletAddress", ProfileController.getProfile);
 router.get("/:walletAddress/collections", ProfileController.getUserCollections);
 router.post("/", ProfileController.createProfile);
 router.put("/:walletAddress", ProfileController.updateProfile);
+router.post("/:walletAddress", ProfileController.updateProfile);
 router.post(
   "/:walletAddress/collections",
   ProfileController.addCollectionToProfile
